@@ -1,0 +1,32 @@
+{
+  "name": "nft-mint",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node utils/index.js",
+    "dev": "nodemon utils/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@pinata/sdk": "^2.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "ethers": "^5.7.2",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "mongoose": "^5.4.18",
+    "puppeteer": "^20.5.0",
+    "@openzeppelin/contracts": "^4.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "hardhat": "^2.22.19"
+  }
+}
