@@ -265,44 +265,38 @@ async function generateHTML(variables) {
 
 async function createHTMLCertificate(name, role, issueDate, walletAddress) {
   try {
-    // create a dynamic HTML string for the certificate
+    // Create a dynamic HTML string for the certificate
     const html = await generateHTML({ name, role, issueDate, walletAddress });
 
-    // launch a new browser instance
+    // Launch Puppeteer with proper configuration
     const browser = await puppeteer.launch({
+      headless: true, // Ensure headless mode is enabled
       args: [
+        "--no-sandbox", // Disable sandboxing for Render compatibility
         "--disable-setuid-sandbox",
-        "--no-sandbox",
+        "--disable-dev-shm-usage", // Prevent shared memory issues
+        "--disable-gpu", // Disable GPU acceleration
+        "--no-zygote",
         "--single-process",
-        "--no-zygote"
       ],
-      headless: "new",
-      executablePath:
-        process.env.NODE_ENV === "production"
-          ? process.env.PUPPETEER_EXECUTABLE_PATH
-          : puppeteer.executablePath(),
+      executablePath: process.env.PUPPETEER_EXECUTABLE_PATH, // Use pre-installed Chromium
     });
+
     const page = await browser.newPage();
 
-    // set the HTML content of the page
-    await page.setContent(html);
+    // Set the HTML content of the page
+    await page.setContent(html, { waitUntil: "domcontentloaded" });
 
-    /*  
-      take a screenshot and save it as a PNG, 
-      use clip to crop the image if needed 
-    */
-    const screenshot = await page.screenshot({
-      type: "png",
-      fullPage: true,
-    });
+    // Take a screenshot of the Civic ID
+    const screenshot = await page.screenshot({ type: "png", fullPage: true });
 
-    // close the browser
+    // Close the browser
     await browser.close();
 
     return screenshot;
   } catch (error) {
     console.error("Error in createHTMLCertificate:", error);
-    throw error;
+    throw new Error("Failed to generate the Civic ID SoulboundNFT.");
   }
 }
 
