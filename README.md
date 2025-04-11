@@ -79,6 +79,10 @@ This project is an extension of **Civic Link**,  this repository contains the **
 
 ### **POST https://civic-identityw3.onrender.com/api/v1/nftmint**
 
+
+Alternative live API -
+### Alternative live API - **POST https://civic-identityw3-production.up.railway.app/api/v1/nftmint**
+
 #### Description:
 Mint a Civic Identity NFT for a user.
 
