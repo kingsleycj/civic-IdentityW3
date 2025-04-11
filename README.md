@@ -165,20 +165,45 @@ Mint a Civic Identity NFT for a user.
      }
      ```
 
-2. **API Call**:
+2. **Mint Civic ID**:
    - Send a POST request to `/nftmint` with the user's name and role.
    - Example:
-     ```javascript
-     async function mintNFT(name, role) {
-       const response = await fetch("/nftmint", {
-         method: "POST",
-         headers: { "Content-Type": "application/json" },
-         body: JSON.stringify({ name, role }),
-       });
-       const data = await response.json();
-       console.log(data);
-     }
-     ```
+The backend provides an endpoint (`/nftmint`) to mint Civic IDs. Below is a code snippet for the frontend team to implement the minting functionality:
+
+```javascript
+async function mintCivicID(name, role) {
+  try {
+    // Validate input fields
+    if (!name || !role) {
+      throw new Error("Name and role are required to mint the Civic ID.");
+    }
+
+    // Send a POST request to the backend API
+    const response = await fetch("http://localhost:3000/api/v1/nftmint", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, role }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log("Civic ID minted successfully:", data);
+      alert(`Civic ID minted successfully! Transaction Hash: ${data.data.transactionHash}`);
+    } else {
+      console.error("Error minting Civic ID:", data.message);
+      alert(`Error: ${data.message}`);
+    }
+  } catch (error) {
+    console.error("Error in mintCivicID function:", error);
+    alert("An error occurred while minting the Civic ID. Check the console for details.");
+  }
+}
+
+// Example usage:
+// Call this function when the user clicks the "Mint Civic ID" button
+// mintCivicID("Sophia Abubakar", "Civilian");
+```
 
 3. **View NFT on OpenSea Testnet**:
    - After minting, use the transaction hash to find the NFT on OpenSea's testnet marketplace:
