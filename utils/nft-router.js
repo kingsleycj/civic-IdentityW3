@@ -46,7 +46,9 @@ async function connectWallet() {
     const privateKey = process.env.PRIVATE_KEY;
 
     if (!alchemyUrl || !privateKey) {
-      throw new Error("Missing required environment variables for wallet connection");
+      throw new Error(
+        "Missing required environment variables for wallet connection"
+      );
     }
 
     const provider = new ethers.providers.JsonRpcProvider(alchemyUrl);
@@ -61,11 +63,13 @@ async function connectWallet() {
 
 async function generateHTML(variables) {
   const { name, role, issueDate, walletAddress } = variables;
-  
+
   // Format wallet address for display (first 6 and last 4 characters)
-  const formattedWallet = walletAddress ? 
-    `${walletAddress.substring(0, 6)}...${walletAddress.substring(walletAddress.length - 4)}` : 
-    'Not Connected';
+  const formattedWallet = walletAddress
+    ? `${walletAddress.substring(0, 6)}...${walletAddress.substring(
+        walletAddress.length - 4
+      )}`
+    : "Not Connected";
 
   const html = `
 <!DOCTYPE html>
@@ -240,9 +244,10 @@ async function generateHTML(variables) {
         <div class="field">
           <div class="field-label">Wallet Address</div>
           <div class="wallet-address">
-            ${formattedWallet.split('').map(char => 
-              `<div class="wallet-digit">${char}</div>`
-            ).join('')}
+            ${formattedWallet
+              .split("")
+              .map((char) => `<div class="wallet-digit">${char}</div>`)
+              .join("")}
           </div>
         </div>
 
@@ -265,7 +270,17 @@ async function createHTMLCertificate(name, role, issueDate, walletAddress) {
 
     // launch a new browser instance
     const browser = await puppeteer.launch({
+      args: [
+        "--disable-setuid-sandbox",
+        "--no-sandbox",
+        "--single-process",
+        "--no-zygote"
+      ],
       headless: "new",
+      executablePath:
+        process.env.NODE_ENV === "production"
+          ? process.env.PUPPETEER_EXECUTABLE_PATH
+          : puppeteer.executablePath(),
     });
     const page = await browser.newPage();
 
@@ -277,8 +292,8 @@ async function createHTMLCertificate(name, role, issueDate, walletAddress) {
       use clip to crop the image if needed 
     */
     const screenshot = await page.screenshot({
-      type: 'png',
-      fullPage: true
+      type: "png",
+      fullPage: true,
     });
 
     // close the browser
@@ -321,7 +336,7 @@ async function saveToPinata(file, name, role) {
       image: imageURL,
       attributes: [
         { trait_type: "Name", value: name },
-        { trait_type: "Role", value: role }
+        { trait_type: "Role", value: role },
       ],
     };
 
@@ -359,7 +374,7 @@ module.exports = function () {
         return res.status(400).json({
           status: 400,
           message: "Missing required fields: name and role are required",
-          data: null
+          data: null,
         });
       }
 
@@ -386,7 +401,7 @@ module.exports = function () {
       console.log({ tokenURI });
 
       const contract = getContract();
-      
+
       try {
         // First estimate gas
         const gasEstimate = await contract.estimateGas.issueCertificate(
@@ -400,20 +415,20 @@ module.exports = function () {
           tokenURI,
           {
             gasLimit: gasEstimate.mul(110).div(100), // Add 10% buffer
-            from: wallet.address // Ensure the creator pays the gas fee
+            from: wallet.address, // Ensure the creator pays the gas fee
           }
         );
 
         // Wait for the transaction to be mined
         const receipt = await tx.wait();
-        
+
         res.json({
           status: 200,
           message: "Civic Identity Verification NFT minted successfully",
           data: {
             ...soulboundNFT,
-            transactionHash: receipt.transactionHash
-          }
+            transactionHash: receipt.transactionHash,
+          },
         });
       } catch (txError) {
         console.error("Transaction error:", txError);
@@ -424,7 +439,7 @@ module.exports = function () {
       res.status(500).json({
         status: 500,
         message: error.message || "Internal server error",
-        data: null
+        data: null,
       });
     }
   });
