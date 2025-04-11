@@ -9,8 +9,8 @@ const { CivicSoulboundNFTABI } = require("./nft-abi");
 const response = require("./response");
 
 /* 
-  NB: we are using polygon mumbai, 
-  so make sure to deploy your contract on mumbai testnet 
+  NB: we are using base testnet, 
+  so make sure to deploy your contract on the base sepolia testnet 
 */
 
 function getContract() {
@@ -36,6 +36,25 @@ function getContract() {
     return contract;
   } catch (error) {
     console.error("Error in getContract:", error);
+    throw error;
+  }
+}
+
+async function connectWallet() {
+  try {
+    const alchemyUrl = process.env.BASE_SEPOLIA_RPC_URL;
+    const privateKey = process.env.PRIVATE_KEY;
+
+    if (!alchemyUrl || !privateKey) {
+      throw new Error("Missing required environment variables for wallet connection");
+    }
+
+    const provider = new ethers.providers.JsonRpcProvider(alchemyUrl);
+    const wallet = new ethers.Wallet(privateKey, provider);
+
+    return wallet;
+  } catch (error) {
+    console.error("Error in connectWallet:", error);
     throw error;
   }
 }
@@ -204,7 +223,7 @@ async function generateHTML(variables) {
     
     <div class="card-content">
       <div class="photo-container">
-        <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Civic%20ID-VHHk33tPRuZ1HR4U6b4E0T9ptcVdY0.png" alt="ID Photo" class="photo">
+        <img src="https://example.com/profile-avatar.png" alt="Profile Avatar" class="photo">
       </div>
       
       <div class="details">
@@ -334,15 +353,19 @@ async function saveToPinata(file, name, role) {
 module.exports = function () {
   router.post("/nftmint", async (req, res) => {
     try {
-      const { name, role, receipient } = req.body;
+      const { name, role } = req.body;
 
-      if (!name || !role || !receipient) {
+      if (!name || !role) {
         return res.status(400).json({
           status: 400,
-          message: "Missing required fields: name, role, and receipient are required",
+          message: "Missing required fields: name and role are required",
           data: null
         });
       }
+
+      // Connect wallet and get the recipient address
+      const wallet = await connectWallet();
+      const receipient = wallet.address;
 
       const issueDate = new Date().toDateString();
       const soulboundNFT = { name, role, receipient, issueDate };
@@ -371,12 +394,13 @@ module.exports = function () {
           tokenURI
         );
 
-        // Then send the transaction with the estimated gas
+        // Then send the transaction with the creator paying the gas fee
         const tx = await contract.issueCertificate(
           soulboundNFT.receipient,
           tokenURI,
           {
-            gasLimit: gasEstimate.mul(110).div(100) // Add 10% buffer
+            gasLimit: gasEstimate.mul(110).div(100), // Add 10% buffer
+            from: wallet.address // Ensure the creator pays the gas fee
           }
         );
 
