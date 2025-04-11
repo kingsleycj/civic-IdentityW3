@@ -77,7 +77,7 @@ This project is an extension of **Civic Link**,  this repository contains the **
 
 ## API Documentation
 
-### **POST localhost:3000/api/v1/nftmint**
+### **POST https://civic-identityw3.onrender.com/api/v1/nftmint**
 
 #### Description:
 Mint a Civic Identity NFT for a user.
@@ -179,7 +179,7 @@ async function mintCivicID(name, role) {
     }
 
     // Send a POST request to the backend API
-    const response = await fetch("http://localhost:3000/api/v1/nftmint", {
+    const response = await fetch("https://civic-identityw3.onrender.com/api/v1/nftmint", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, role }),
@@ -244,3 +244,8 @@ async function mintCivicID(name, role) {
 - The contact-abi in `nft-abi.js` was inserted after the contract was deployed and verified on the **Base Sepolia Network**, so before proceeding with running the application. Ensure that you have **compiled**, **deployed** and **verified** the contract.
 ---
 
+## Screenshots
+
+> API Tests ![API Tests](<./screenshots/api-tests.png>)
+
+> OpenSea Testnet: To view minted Civic ID ![Civic ID](<./screenshots/opensea_civicid.png>)
