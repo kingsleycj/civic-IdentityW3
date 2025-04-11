@@ -223,7 +223,7 @@ async function generateHTML(variables) {
     
     <div class="card-content">
       <div class="photo-container">
-        <img src="https://img.freepik.com/free-photo/handsome-adult-male-posing_23-2148729713.jpg?semt=ais_hybrid&w=740" alt="Profile Avatar" class="photo">
+        <img src="./avatar-img.jpg" alt="Profile Avatar" class="photo">
       </div>
       
       <div class="details">
