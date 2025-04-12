@@ -355,6 +355,8 @@ async function createHTMLCertificate(name, role, issueDate, walletAddress) {
     // Close the browser
     await browser.close();
 
+    console.log("Generated image buffer size:", screenshot.length);
+
     return screenshot;
   } catch (error) {
     console.error("Error in createHTMLCertificate:", error);
@@ -384,6 +386,8 @@ async function saveToPinata(file, name, role) {
       pinataMetadata: { name: `Civic ID for ${name}` },
     });
     const imageURL = `https://gateway.pinata.cloud/ipfs/${imageResult.IpfsHash}`;
+
+    console.log("Uploaded image URL:", imageURL);
 
     // Now create a metadata object, for OpenSea to read from
     const metadata = {

@@ -222,7 +222,10 @@ async function mintCivicID(name, role) {
    - Use a blockchain explorer (e.g., Etherscan for Base Sepolia) to verify the transaction.
 
 3. **Test the OpenSea Integration**:
-   - Use the contract address and token ID to view the NFT on OpenSea's testnet.
+   - Use the [contract address](https://testnets.opensea.io/assets/base_sepolia/0xf8c55535dbcc22b67da42d409ee91e6ae11969f3/) to view all Civic-ID NFTs minted through that contract address 
+   
+4. **Viewing NFT on Metamask** 
+   - Use token ID to view the NFT on Base Seoplia Network.
 
 ---
 
@@ -249,3 +252,10 @@ async function mintCivicID(name, role) {
 > API Tests ![API Tests](<./screenshots/api-tests.png>)
 
 > OpenSea Testnet: To view minted Civic ID ![Civic ID](<./screenshots/opensea_civicid.png>)
+
+
+
+## Deliverables
+
+- [Verified Smart Contract](https://base-sepolia.blockscout.com/address/0xf8c55535dbcc22b67da42d409ee91e6ae11969f3?tab=contract)
+- [View All Minted Civc IDs on OpenSea Testnet](https://testnets.opensea.io/collection/civic-id-1)
