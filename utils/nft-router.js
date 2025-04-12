@@ -81,7 +81,7 @@ async function generateHTML(variables) {
   <style>
     body {
       font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-      background-color: #f0f0f0;
+      background-color: #f5f7fa;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -89,51 +89,79 @@ async function generateHTML(variables) {
       margin: 0;
       padding: 20px;
     }
+    
     .card {
-      background-color: #1b7e3d;
+      background: linear-gradient(135deg, #1b7e3d 0%, #25a04d 100%);
       border-radius: 24px;
-      padding: 30px;
+      padding: 35px;
       width: 100%;
-      max-width: 500px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      max-width: 650px; /* Increased from 500px to 650px */
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
       position: relative;
       overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+    
     .card::before {
       content: "";
       position: absolute;
-      top: -50px;
-      right: -50px;
-      width: 120px;
-      height: 120px;
+      top: -80px;
+      right: -80px;
+      width: 200px;
+      height: 200px;
       background-color: rgba(167, 233, 188, 0.1);
       border-radius: 50%;
     }
+    
+    .card::after {
+      content: "";
+      position: absolute;
+      bottom: -60px;
+      left: -60px;
+      width: 150px;
+      height: 150px;
+      background-color: rgba(167, 233, 188, 0.08);
+      border-radius: 50%;
+    }
+    
     .card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 25px;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 1;
     }
+    
     .card-title {
       color: #fff;
       font-size: 28px;
-      font-weight: bold;
+      font-weight: 800;
       margin: 0;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+    
     .card-logo {
-      background-color: rgba(255, 255, 255, 0.9);
+      background-color: rgba(255, 255, 255, 0.95);
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
+      width: 48px;
+      height: 48px;
       display: flex;
       justify-content: center;
       align-items: center;
       font-weight: bold;
+      font-size: 18px;
       color: #1b7e3d;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+    
     .card-content {
       display: flex;
       flex-direction: column;
@@ -141,78 +169,112 @@ async function generateHTML(variables) {
       position: relative;
       z-index: 1;
     }
+    
     .photo-container {
       width: 100%;
-      border-radius: 12px;
+      height: 240px; /* Increased from 200px to 240px */
+      border-radius: 16px;
       overflow: hidden;
       background-color: #e0e0e0;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
       position: relative;
     }
+    
     .photo {
       width: 100%;
+      height: 100%;
+      object-fit: cover; /* This makes the image fill the container */
       display: block;
+      transition: transform 0.3s ease;
     }
+    
+    .photo-container:hover .photo {
+      transform: scale(1.05);
+    }
+    
     .details {
       color: #fff;
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: rgba(0, 0, 0, 0.15);
       border-radius: 16px;
-      padding: 20px;
+      padding: 25px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+    
     .field {
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
+    
     .field:last-child {
       margin-bottom: 0;
     }
+    
     .field-label {
       color: #a7e9bc;
       font-size: 14px;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 500;
+      letter-spacing: 0.8px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
     }
+    
     .field-value {
       font-weight: 600;
       margin: 0;
       font-size: 18px;
+      letter-spacing: 0.5px;
     }
+    
     .wallet-address {
       display: flex;
       gap: 6px;
-      margin-top: 8px;
+      margin-top: 10px;
       flex-wrap: wrap;
       font-family: monospace;
     }
+    
     .wallet-digit {
       width: 30px;
       height: 36px;
       background-color: white;
-      border-radius: 6px;
+      border-radius: 8px;
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 16px;
       font-weight: 600;
       color: #1b7e3d;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
+    
+    .wallet-digit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
     .issue-date {
       color: #a7e9bc;
-      font-size: 12px;
-      margin-top: 10px;
+      font-size: 13px;
+      margin-top: 15px;
       text-align: right;
+      font-style: italic;
     }
+    
     @media (min-width: 768px) {
       .card-content {
         flex-direction: row;
       }
+      
       .photo-container {
-        width: 40%;
+        width: 45%; /* Increased from 40% to 45% */
+        height: auto;
+        min-height: 280px; /* Increased from 250px to 280px */
       }
+      
       .details {
-        width: 60%;
+        width: 55%; /* Adjusted from 60% to 55% */
         margin-left: 24px;
       }
     }
@@ -227,7 +289,7 @@ async function generateHTML(variables) {
     
     <div class="card-content">
       <div class="photo-container">
-        <img src="./avatar-img.jpg" alt="Profile Avatar" class="photo">
+        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Profile Avatar" class="photo">
       </div>
       
       <div class="details">
