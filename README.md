@@ -11,15 +11,15 @@ This project is an extension of **Civic Link**,  this repository contains the **
    - The connected wallet address serves as the recipient of the minted NFT.
 
 2. **Identity Verification**:
-   - Users provide their name and role, which are used to generate a dynamic HTML certificate.
+   - Users provide their name and role, which are used to generate a dynamic HTML Civic ID NFT.
 
 3. **NFT Minting**:
    - The certificate is converted into an image and uploaded to IPFS using Pinata.
    - Metadata for the NFT is created and uploaded to IPFS.
    - The NFT is minted on the **Base Sepolia Testnet**, with the creator (private key in `.env`) paying the gas fees.
 
-4. **Dynamic HTML Certificate**:
-   - A visually appealing certificate is generated, including:
+4. **Dynamic HTML for Civic ID**:
+   - A visually appealing ID is generated, including:
      - Name
      - Role
      - Wallet Address
@@ -129,12 +129,12 @@ Mint a Civic Identity NFT for a user.
 1. **Wallet Connection**:
    - The backend connects to the creator's wallet using the private key in `.env`.
 
-2. **Certificate Generation**:
-   - A dynamic HTML certificate is generated using the user's name, role, wallet address, and issue date.
-   - The certificate includes a profile avatar.
+2. **Civic ID Generation**:
+   - A dynamic HTML ID is generated using the user's name, role, wallet address, and issue date.
+   - The Civic ID includes a profile avatar.
 
 3. **NFT Metadata Creation**:
-   - The certificate is converted into an image using Puppeteer.
+   - The Civic ID is converted into an image using Puppeteer.
    - The image and metadata are uploaded to IPFS via Pinata.
 
 4. **NFT Minting**:
@@ -253,7 +253,7 @@ async function mintCivicID(name, role) {
 
 > OpenSea Testnet: To view minted Civic ID ![Civic ID](<./screenshots/opensea_civicid.png>)
 
-
+---
 
 ## Deliverables
 
