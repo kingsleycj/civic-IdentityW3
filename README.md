@@ -1,6 +1,6 @@
 # Civic Identity NFT Minting Application
 
-This project is an extension of **Civic Link**,  this repository contains the **Civic Identity App**, it allows users to connect their wallets, verify their identity, and mint a **Soulbound NFT** as a form of digital ID. The application is built using **Node.js**, **Express**, and **Ethers.js**, and it integrates with **Pinata** for IPFS storage and the **Base Sepolia Testnet** for blockchain interactions.
+This project is an extension of **Civic Link**,  this repository contains the **Civic Identity App**, it allows users to connect their wallets, verify their identity, and mint a **Soulbound NFT** as a form of digital ID. The application is built using **Node.js**, **Express**, and **Ethers.js**, and it integrates with **Pinata** for IPFS storage and the **Base Sepolia Testnet** for blockchain interactions. Also, because we're considering new WEB3 users that may not have ETH, we made the gas fee payment free for those minting their Civic IDs, and the payment done by a gas bank which is the creator of the smart contract.
 
 ---
 
