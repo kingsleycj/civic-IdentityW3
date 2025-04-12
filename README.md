@@ -245,6 +245,8 @@ async function mintCivicID(name, role) {
 - The application is configured for the **Base Sepolia Testnet**. Update the `.env` file for other networks if needed.
 - The profile avatar in the certificate is currently static. Update the `src` attribute in the `photo-container` section of the `generateHTML` function to make it dynamic.
 - The contact-abi in `nft-abi.js` was inserted after the contract was deployed and verified on the **Base Sepolia Network**, so before proceeding with running the application. Ensure that you have **compiled**, **deployed** and **verified** the contract.
+- <span style="color:red">MINTING NFTS CAN BE SLOW BECAUSE THIS BACKEND IS DEPLOYED TO A FREE RENDER SERVICE</span>
+
 ---
 
 ## Screenshots
