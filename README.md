@@ -257,5 +257,6 @@ async function mintCivicID(name, role) {
 
 ## Deliverables
 
+- [Civic Link Web3 Project Live Link](https://civic-link-five.vercel.app/)
 - [Verified Smart Contract](https://base-sepolia.blockscout.com/address/0xf8c55535dbcc22b67da42d409ee91e6ae11969f3?tab=contract)
 - [View All Minted Civc IDs on OpenSea Testnet](https://testnets.opensea.io/collection/civic-id-1)
