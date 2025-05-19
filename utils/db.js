@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/web3-lms";
+const MONGODB_URI = process.env.MONGODB_URI || "";
 
 const connectDB = async () => {
   try {
